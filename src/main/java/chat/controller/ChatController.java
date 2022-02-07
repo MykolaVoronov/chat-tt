@@ -31,7 +31,7 @@ public class ChatController extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         String text = req.getParameter("text");
         HttpSession session = req.getSession();
         Long id = (Long) session.getAttribute(SessionAttributeUtil.SESSION_ATTRIBUTE_USER_ID);

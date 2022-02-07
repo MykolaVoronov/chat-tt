@@ -1,8 +1,7 @@
 package chat.util;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,11 +12,10 @@ public class ConnectionUtil {
     private static final String URL;
     private static final String USERNAME;
     private static final String PASSWORD;
-    private static final String ABSOLUTE_PROPERTIES_PATH = "PATH";
 
     static {
-        File file = new File(ABSOLUTE_PROPERTIES_PATH);
-        try (FileInputStream stream = new FileInputStream(file)) {
+        try (InputStream stream = ConnectionUtil.class.getClassLoader()
+                .getResourceAsStream("db.properties")) {
             Properties properties = new Properties();
             properties.load(stream);
             JDBC_DRIVER = properties.getProperty("db.driver");

@@ -3,6 +3,7 @@
 This web application simulates the operation of a chat. 
 Through it, you can log in, log out, send messages.
 
+Application logs will be saved in `{tomcatHomePath}/bin/logs`
 # Technologies
 
 - Apache Tomcat
@@ -12,6 +13,7 @@ Through it, you can log in, log out, send messages.
 - Servlet API
 - JSTL
 - JSP
+- log4j
 
 # Setup
 
