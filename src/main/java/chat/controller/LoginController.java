@@ -3,6 +3,7 @@ package chat.controller;
 import chat.lib.Injector;
 import chat.model.User;
 import chat.service.AuthenticationService;
+import chat.util.SessionAttributeUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginController extends HttpServlet {
-    private static final String SESSION_ATTRIBUTE_USER_ID = "user_id";
     private static final Injector injector = Injector.getInstance("chat");
     private final AuthenticationService authService
             = (AuthenticationService) injector.getInstance(AuthenticationService.class);
@@ -28,7 +28,7 @@ public class LoginController extends HttpServlet {
         String login = req.getParameter("login");
         User user = authService.login(login);
         HttpSession session = req.getSession();
-        session.setAttribute(SESSION_ATTRIBUTE_USER_ID, user.getId());
+        session.setAttribute(SessionAttributeUtil.SESSION_ATTRIBUTE_USER_ID, user.getId());
         resp.sendRedirect("/chat");
     }
 }

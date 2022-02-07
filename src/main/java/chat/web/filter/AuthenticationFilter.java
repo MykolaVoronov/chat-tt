@@ -1,5 +1,6 @@
 package chat.web.filter;
 
+import chat.util.SessionAttributeUtil;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class AuthenticationFilter implements Filter {
-    private static final String SESSION_ATTRIBUTE_USER_ID = "user_id";
     private Set<String> allowedUrls;
 
     @Override
@@ -30,7 +30,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        Long driverId = (Long) session.getAttribute(SESSION_ATTRIBUTE_USER_ID);
+        Long driverId = (Long) session.getAttribute(SessionAttributeUtil.SESSION_ATTRIBUTE_USER_ID);
         if (driverId == null && !allowedUrls.contains(request.getServletPath())) {
             response.sendRedirect("/login");
             return;

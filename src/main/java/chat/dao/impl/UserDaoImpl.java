@@ -18,7 +18,7 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
     @Override
     public User create(User user) {
-        String query = "INSERT INTO users (login, is_deleted) VALUES (?, FALSE);";
+        String query = "INSERT INTO users (login) VALUES (?);";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement createStatement = connection.prepareStatement(query,
                         Statement.RETURN_GENERATED_KEYS)) {

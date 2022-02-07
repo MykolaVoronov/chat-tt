@@ -23,8 +23,8 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public Message create(Message message) {
-        String query = "INSERT INTO messages (text, send_time, user_id, is_deleted)"
-                + " VALUES (?, ?, ?, FALSE);";
+        String query = "INSERT INTO messages (text, send_time, user_id)"
+                + " VALUES (?, ?, ?);";
         try (Connection connection = ConnectionUtil.getConnection();
                    PreparedStatement createStatement = connection.prepareStatement(query,
                         Statement.RETURN_GENERATED_KEYS)) {

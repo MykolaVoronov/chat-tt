@@ -4,6 +4,7 @@ import chat.lib.Injector;
 import chat.model.Message;
 import chat.service.MessageService;
 import chat.service.UserService;
+import chat.util.SessionAttributeUtil;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ChatController extends HttpServlet {
-    private static final String SESSION_ATTRIBUTE_USER_ID = "user_id";
     private static final Injector injector = Injector.getInstance("chat");
     private final MessageService messageService
             = (MessageService) injector.getInstance(MessageService.class);
@@ -34,7 +34,7 @@ public class ChatController extends HttpServlet {
             throws ServletException, IOException {
         String text = req.getParameter("text");
         HttpSession session = req.getSession();
-        Long id = (Long) session.getAttribute(SESSION_ATTRIBUTE_USER_ID);
+        Long id = (Long) session.getAttribute(SessionAttributeUtil.SESSION_ATTRIBUTE_USER_ID);
         Message message = new Message(text, LocalDateTime.now(), userService.get(id));
         messageService.create(message);
         resp.sendRedirect("/chat");
